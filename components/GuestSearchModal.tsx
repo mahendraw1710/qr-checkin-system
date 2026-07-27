@@ -8,6 +8,7 @@ type Guest = {
   full_name: string;
   active: boolean;
   tamu: string | null;
+  org: string | null;
 };
 
 type Props = {
@@ -43,7 +44,7 @@ useEffect(() => {
 
   if (searchText.length < 3) {
     setResults([]);
-    alert("Please enter at least 4 characters.");
+    alert("Please enter at least 3 characters.");
     return;
   }
 
@@ -51,11 +52,11 @@ useEffect(() => {
 
     const { data, error } = await supabase
         .from("users")
-        .select("qr_id, full_name, active, tamu")
+        .select("qr_id, full_name, active, tamu, org")
         .or(
           `full_name.ilike.%${searchText}%,tamu.ilike.%${searchText}%`
         )
-        .limit(10);
+        .limit(15);
 
     setLoading(false);
 
@@ -135,6 +136,10 @@ useEffect(() => {
 
               <p className="text-sm text-gray-500">
                 Invited by: {guest.tamu ?? "-"}
+              </p>
+
+              <p className="text-sm text-gray-500">
+                Relasi: {guest.org ?? "-"}
               </p>
             </button>
           ))}
