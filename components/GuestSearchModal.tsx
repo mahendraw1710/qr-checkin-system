@@ -41,7 +41,7 @@ useEffect(() => {
   const searchGuests = async () => {
   const searchText = keyword.trim();
 
-  if (searchText.length < 4) {
+  if (searchText.length < 3) {
     setResults([]);
     alert("Please enter at least 4 characters.");
     return;
