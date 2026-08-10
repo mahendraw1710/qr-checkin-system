@@ -18,8 +18,10 @@ import GuestSearchModal from "@/components/GuestSearchModal";
 
 type User = {
   qr_id: string;
+  tamu: string | null;
   full_name: string;
   active: boolean;
+  org: string | null;
 };
 
 export default function Home() {
@@ -40,6 +42,8 @@ export default function Home() {
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   const processingRef = useRef(false);
   const [message, setMessage] = useState("");
+  const isVip =
+  user?.tamu?.toUpperCase() === "VIP";
   const hasCheckedInToday = async (
   qrId: string
 ) => {
@@ -346,7 +350,7 @@ export default function Home() {
 
         {/* RIGHT */}
 
-        <div>
+        <div className="space-y-6">
           <RecentCheckins logs={recentLogs} />
           {user && step !== "success" && (
             <UserCard user={user} />
